@@ -1,0 +1,8 @@
+.link {
+  color: var(--dark-color);
+  padding: 1rem;
+}
+
+.active {
+  color: tomato;
+}

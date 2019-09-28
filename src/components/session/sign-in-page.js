@@ -13,8 +13,7 @@ const SignInPage = () => {
       ></form>
 
       <p>
-        Don't have an account?
-        <Link to="/sign-up">Register here</Link>
+        Don't have an account? <Link to="/sign-up">Register here</Link>
       </p>
     </>
   );

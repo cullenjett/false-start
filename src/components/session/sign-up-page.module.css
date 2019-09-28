@@ -1,0 +1,17 @@
+.form {
+  max-width: 40rem;
+  margin: 0 0 4rem 0;
+}
+
+.label {
+  display: block;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  display: block;
+  font-size: 1.6rem;
+  width: 100%;
+  padding: 0.8rem;
+}
