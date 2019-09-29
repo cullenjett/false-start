@@ -1,22 +1,10 @@
 import React from 'react';
 import { Link } from '@reach/router';
 
-import Form, { Field } from '../form/form';
+import { Form, Field } from '../form';
+import InputField from '../inputs/input-field';
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-const InputField = (props) => {
-  console.log(`${props.input.name} component render`);
-  const hasError = props.meta.submitFailed && props.meta.error;
-  return (
-    <div>
-      <label>{props.label}</label>
-      <br />
-      <input {...props.input} style={{ borderColor: hasError && 'tomato' }} />
-      {hasError && <p style={{ color: 'tomato' }}>{props.meta.error}</p>}
-    </div>
-  );
-};
 
 const SignInPage = () => {
   return (
@@ -45,23 +33,30 @@ const SignInPage = () => {
           return errors;
         }}
       >
-        <Field
-          label="Email address"
-          name="email"
-          type="email"
-          component={InputField}
-          autoComplete="off"
-        />
+        {({ isSubmitting }) => (
+          <>
+            <Field
+              label="Email address"
+              name="email"
+              type="email"
+              component={InputField}
+              data-testid="email-input"
+              autoComplete="off"
+            />
 
-        <Field
-          label="Password"
-          name="password"
-          type="password"
-          component={InputField}
-          autoComplete="off"
-        />
+            <Field
+              label="Password"
+              name="password"
+              type="password"
+              component={InputField}
+              autoComplete="off"
+            />
 
-        <button type="submit">Submit</button>
+            <button type="submit" disabled={isSubmitting}>
+              Submit
+            </button>
+          </>
+        )}
       </Form>
 
       <p>

@@ -1,6 +1,6 @@
-import React, { useContext, useMemo, useReducer, useRef } from 'react';
+import React, { useMemo, useReducer, useRef } from 'react';
 
-const FormContext = React.createContext();
+export const FormContext = React.createContext();
 
 const initialState = {
   isSubmitting: false,
@@ -10,7 +10,6 @@ const initialState = {
 };
 
 const reducer = (validate) => (state, action) => {
-  console.log({ state, action });
   switch (action.type) {
     case 'CHANGE_FIELD':
       const newFormValues = {
@@ -74,19 +73,13 @@ const Form = ({ onSubmit, validate, children }) => {
       }
     }
 
-    const result = onSubmit(state.formValues);
-
-    if (result && result.then) {
-      result.then((errors) => {
-        if (errors) {
-          dispatch({ type: 'SUBMIT_FAILED', errors });
-        } else {
-          dispatch({ type: 'SUBMIT_SUCCESSFUL' });
-        }
-      });
-    } else {
-      dispatch({ type: 'SUBMIT_SUCCESSFUL' });
-    }
+    onSubmit(state.formValues).then((errors) => {
+      if (errors) {
+        dispatch({ type: 'SUBMIT_FAILED', errors });
+      } else {
+        dispatch({ type: 'SUBMIT_SUCCESSFUL' });
+      }
+    });
   };
 
   const ctx = useMemo(() => {
@@ -99,68 +92,10 @@ const Form = ({ onSubmit, validate, children }) => {
   return (
     <FormContext.Provider value={ctx}>
       <form onSubmit={handleSubmit} noValidate>
-        {children}
+        {children(state)}
       </form>
     </FormContext.Provider>
   );
 };
 
 export default Form;
-
-export const Field = (props) => {
-  const {
-    name,
-    type,
-    component: Component,
-    disabled,
-    label,
-    autoComplete,
-  } = props;
-  const { state, dispatch } = useContext(FormContext);
-
-  const value = state.formValues[name] || '';
-  const error = state.formErrors[name];
-  const submitFailed = state.submitFailed;
-  const dataTestID = props['data-testid'];
-
-  const component = useMemo(() => {
-    const componentProps = {
-      label,
-      input: {
-        type,
-        name,
-        value,
-        disabled,
-        autoComplete,
-        id: name,
-        'data-testid': dataTestID,
-        onChange: (e) => {
-          dispatch({
-            type: 'CHANGE_FIELD',
-            name,
-            value: e.target.value,
-          });
-        },
-      },
-      meta: {
-        error,
-        submitFailed,
-      },
-    };
-
-    return <Component {...componentProps} />;
-  }, [
-    name,
-    type,
-    dispatch,
-    value,
-    error,
-    submitFailed,
-    disabled,
-    dataTestID,
-    label,
-    autoComplete,
-  ]);
-
-  return component;
-};
