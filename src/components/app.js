@@ -1,10 +1,10 @@
 import React, { Suspense, lazy } from 'react';
 import { Router } from '@reach/router';
 
-import MainNav from './navigation/main-nav';
+import MainNav from './navigation/app-nav';
 
-const SignInPage = lazy(() => import('./session/sign-in-page'));
-const SignUpPage = lazy(() => import('./session/sign-up-page'));
+const SignInPage = lazy(() => import('./user-management/sign-in-page'));
+const SignUpPage = lazy(() => import('./user-management/sign-up-page'));
 
 const App = () => {
   return (
