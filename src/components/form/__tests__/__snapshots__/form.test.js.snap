@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Form /> renders a basic form 1`] = `
+<div>
+  <form
+    novalidate=""
+  >
+    <div>
+      <label
+        class="label"
+        for="firstName"
+      >
+        First name
+      </label>
+      <input
+        class="input"
+        id="firstName"
+        name="firstName"
+        type="text"
+        value=""
+      />
+    </div>
+  </form>
+</div>
+`;
