@@ -50,7 +50,7 @@ const reducer = (validate) => (state, action) => {
   }
 };
 
-const Form = ({ onSubmit, validate, children }) => {
+const Form = ({ onSubmit, validate, children, ...rest }) => {
   /**
    * We use a ref to hold the composed validate function to prevent
    * odd re-renders during the first dispatched event
@@ -91,7 +91,7 @@ const Form = ({ onSubmit, validate, children }) => {
 
   return (
     <FormContext.Provider value={ctx}>
-      <form onSubmit={handleSubmit} noValidate>
+      <form noValidate {...rest} onSubmit={handleSubmit}>
         {children(state)}
       </form>
     </FormContext.Provider>

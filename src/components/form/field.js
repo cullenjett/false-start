@@ -2,12 +2,11 @@ import React, { useContext } from 'react';
 
 import { FormContext } from './form';
 
-const Field = ({ name, label, component: Component, ...rest }) => {
+const Field = ({ name, label, disabled, component: Component, ...rest }) => {
   const { state, dispatch } = useContext(FormContext);
 
   const value = state.formValues[name] || '';
   const error = state.formErrors[name];
-  const submitFailed = state.submitFailed;
 
   const componentProps = {
     label,
@@ -15,6 +14,7 @@ const Field = ({ name, label, component: Component, ...rest }) => {
       ...rest,
       name,
       value,
+      disabled: disabled || state.isSubmitting,
       onChange: (e) => {
         dispatch({
           type: 'CHANGE_FIELD',
@@ -25,7 +25,7 @@ const Field = ({ name, label, component: Component, ...rest }) => {
     },
     meta: {
       error,
-      submitFailed,
+      submitFailed: state.submitFailed,
     },
   };
 

@@ -1,0 +1,25 @@
+.label {
+  display: block;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  display: block;
+  font-size: 1.6rem;
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0 0 2rem 0;
+  border: 1px solid var(--dark-color);
+}
+
+.inputError {
+  border-color: tomato;
+  margin-bottom: 0;
+}
+
+.errorMsg {
+  font-size: 1.4rem;
+  color: tomato;
+  margin: 0 0 2rem 0;
+}
