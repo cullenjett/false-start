@@ -3,6 +3,7 @@ import { Link } from '@reach/router';
 
 import { Form, Field } from '../form';
 import InputField from '../inputs/input-field';
+import { valid, required, email } from '../../utils/validation';
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -18,13 +19,8 @@ const SignInPage = () => {
   const validate = (values) => {
     const errors = {};
 
-    if (!values.email) {
-      errors.email = 'Email is required';
-    }
-
-    if (!values.password) {
-      errors.password = 'Password is required';
-    }
+    errors.email = valid(required('Email is required'), email())(values.email);
+    errors.password = valid(required('Password is required'))(values.password);
 
     return errors;
   };
