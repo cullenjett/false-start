@@ -34,4 +34,8 @@ export const createStorage = ({ namespace }) => {
   };
 };
 
-export default createStorage({ namespace: 'APP' });
+export const storage = createStorage({ namespace: 'APP' });
+
+if (process.env.NODE_ENV !== 'production') {
+  window.appStorage = storage;
+}
