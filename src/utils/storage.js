@@ -1,4 +1,8 @@
-export const createStorage = ({ namespace }) => {
+/**
+ * createStorage() is a factory function that returns an object with methods
+ * for interacting with device storage.
+ */
+export const createStorage = ({ dataStore, namespace }) => {
   const getFullKey = (key) => {
     return `${namespace}:${key}`;
   };
@@ -6,9 +10,7 @@ export const createStorage = ({ namespace }) => {
   return {
     get: (key) => {
       try {
-        return Promise.resolve(
-          JSON.parse(localStorage.getItem(getFullKey(key)))
-        );
+        return Promise.resolve(JSON.parse(dataStore.getItem(getFullKey(key))));
       } catch (err) {
         return Promise.reject(err);
       }
@@ -16,16 +18,16 @@ export const createStorage = ({ namespace }) => {
 
     set: (key, value) => {
       try {
-        localStorage.getItem(getFullKey(key), JSON.stringify(value));
+        dataStore.setItem(getFullKey(key), JSON.stringify(value));
         return Promise.resolve(true);
       } catch (err) {
         return Promise.reject(err);
       }
     },
 
-    delete: (key) => {
+    remove: (key) => {
       try {
-        localStorage.removeItem(getFullKey(key));
+        dataStore.removeItem(getFullKey(key));
         return Promise.resolve(true);
       } catch (err) {
         return Promise.reject(err);
@@ -34,7 +36,10 @@ export const createStorage = ({ namespace }) => {
   };
 };
 
-export const storage = createStorage({ namespace: 'APP' });
+export const storage = createStorage({
+  dataStore: localStorage,
+  namespace: 'APP',
+});
 
 if (process.env.NODE_ENV !== 'production') {
   window.appStorage = storage;
