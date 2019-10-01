@@ -37,7 +37,7 @@ const setup = (options) => {
 
 describe('createClient', () => {
   describe('.get()', () => {
-    it('calls options.fetch', async () => {
+    it('calls fetch', async () => {
       const { get, fetch } = setup();
 
       await get('/api');
@@ -89,7 +89,7 @@ describe('createClient', () => {
   });
 
   describe('.post()', () => {
-    it('calls options.fetch', async () => {
+    it('calls fetch', async () => {
       const { post, fetch } = setup();
 
       await post('/api', { foo: 'bar' });

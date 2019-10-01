@@ -8,10 +8,13 @@ export const valid = (...validatorFuncs) => (value) => {
 
 export const email = (customMsg) => (value) => {
   const emailRegex = new RegExp(/.+@.+\..+/);
+  let error;
 
   if (!emailRegex.test(value)) {
-    return customMsg || 'Invalid email format';
+    error = customMsg || 'Invalid email format';
   }
+
+  return error;
 };
 
 export const required = (customMsg) => (value) => {
