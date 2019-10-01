@@ -1,18 +1,17 @@
 import React from 'react';
 import { Link } from '@reach/router';
+import { connect } from 'react-redux';
 
 import { Form, Field } from '../form';
 import InputField from '../inputs/input-field';
+import { signIn } from '../../actions/session-actions';
 import { valid, required, email } from '../../utils/validation';
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-const SignInPage = () => {
-  const handleSubmit = () => {
-    return sleep(1000).then(() => {
-      return {
-        email: 'That email is already taken',
-      };
+const SignInPage = ({ signIn }) => {
+  const handleSubmit = (formValues) => {
+    return signIn({
+      email: formValues.email,
+      password: formValues.password,
     });
   };
 
@@ -66,4 +65,9 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default connect(
+  null,
+  {
+    signIn,
+  }
+)(SignInPage);

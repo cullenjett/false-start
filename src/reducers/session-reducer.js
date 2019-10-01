@@ -2,9 +2,9 @@ const initialState = false;
 
 export const sessionReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SIGN_IN':
+    case 'CREATE_SESSION':
       return true;
-    case 'SIGN_OUT':
+    case 'DESTROY_SESSION':
       return false;
     default:
       return state;
