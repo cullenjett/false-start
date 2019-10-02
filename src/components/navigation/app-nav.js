@@ -2,7 +2,7 @@ import React from 'react';
 
 import NavLink from './nav-link';
 
-const MainNav = () => {
+const AppNav = () => {
   return (
     <header>
       <nav>
@@ -13,4 +13,4 @@ const MainNav = () => {
   );
 };
 
-export default MainNav;
+export default AppNav;
