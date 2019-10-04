@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/false-start
+    environment:
+      TZ: '/usr/share/zoneinfo/America/Denver'
+    docker:
+      - image: circleci/node:12.10
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - dependencies-
+
+      - run: npm install
+
+      - save_cache:
+          key: dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+
+      - run: npm run test
