@@ -1,23 +1,35 @@
+import { log } from './log';
+
 export const createClient = (options) => {
   const { baseUrl, fetch, getAuthToken } = options;
 
   return {
     get: (path) => {
-      return fetch(baseUrl + path, {
+      const url = baseUrl + path;
+      return fetch(url, {
         method: 'GET',
         headers: buildHeaders(getAuthToken),
-      }).then(handleResponse);
+      })
+        .then(handleResponse)
+        .catch((err) => handleError(err, url));
     },
 
     post: (path, body) => {
-      return fetch(baseUrl + path, {
+      const url = baseUrl + path;
+      return fetch(url, {
         method: 'POST',
         headers: buildHeaders(getAuthToken),
         body,
-      }).then(handleResponse);
+      })
+        .then(handleResponse)
+        .catch((err) => handleError(err, url));
     },
   };
 };
+
+if (process.env.NODE_ENV !== 'production') {
+  window.createClient = createClient;
+}
 
 function buildHeaders(getAuthToken) {
   const headers = {};
@@ -25,9 +37,6 @@ function buildHeaders(getAuthToken) {
   let authToken;
   if (getAuthToken) {
     authToken = getAuthToken();
-  }
-
-  if (authToken) {
     headers.Authorization = `Bearer ${authToken}`;
   }
 
@@ -40,4 +49,9 @@ function handleResponse(res) {
   }
 
   return res.json();
+}
+
+function handleError(err, url) {
+  log({ err, url });
+  return Promise.reject(err);
 }
