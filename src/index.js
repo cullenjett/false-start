@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import App from './components/app';
+import ErrorBoundary from './components/error-boundary';
 import { configureStore } from './utils/configure-store';
 
 import './styles/index.css';
@@ -14,8 +15,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <ErrorBoundary>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </ErrorBoundary>,
   document.getElementById('root')
 );
