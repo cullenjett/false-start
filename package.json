@@ -6,7 +6,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "docker:build": "docker build --rm -t cullenjett/false-start .",
+    "docker:start": "docker run --rm -it -p 80:80 cullenjett/false-start"
   },
   "dependencies": {
     "@reach/router": "^1.2.1",
