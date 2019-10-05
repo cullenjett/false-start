@@ -13,7 +13,9 @@
   "dependencies": {
     "@reach/router": "^1.2.1",
     "@testing-library/react": "^9.3.0",
+    "chrome-launcher": "^0.11.2",
     "classnames": "^2.2.6",
+    "lighthouse": "^5.5.0",
     "node-fetch": "^2.6.0",
     "prettier": "^1.18.2",
     "react": "^16.10.2",
