@@ -11,14 +11,17 @@
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
 
-const [, , url] = process.argv;
+runLighthouse();
 
-console.log(`Running lighthouse audit against ${url}`);
+async function runLighthouse() {
+  const [, , url] = process.argv;
+  console.log(`Running lighthouse audit against ${url}`);
 
-launchChromeAndRunLighthouse(url).then((results) => {
+  const results = await launchChromeAndRunLighthouse(url);
+
   // TODO: send this data somewhere...
   console.log(parseLighthouseResults(results));
-});
+}
 
 async function launchChromeAndRunLighthouse(url, opts = {}, config = null) {
   const chrome = await chromeLauncher.launch({ chromeFlags: opts.chromeFlags });
