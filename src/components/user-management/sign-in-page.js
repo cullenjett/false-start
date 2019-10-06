@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { Form, Field } from '../form';
 import InputField from '../inputs/input-field';
-import { signIn } from '../../actions/session-actions';
+import { signIn } from '../../features/session/session-actions';
 import { valid, required, email } from '../../utils/validation';
 
 const SignInPage = ({ signIn }) => {

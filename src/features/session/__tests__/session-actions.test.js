@@ -2,9 +2,9 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import { signIn } from '../session-actions';
-import { api } from '../../api';
+import { api } from 'api';
 
-jest.mock('../../api');
+jest.mock('api');
 
 const makeMockStore = configureStore([thunk]);
 
