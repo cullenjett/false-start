@@ -7,6 +7,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "start:prod": "npm run docker:build && npm run docker:start",
     "docker:build": "docker build --rm -t cullenjett/false-start .",
     "docker:start": "docker run --rm -it -p 3000:3000 cullenjett/false-start"
   },
